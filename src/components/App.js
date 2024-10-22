@@ -3,6 +3,7 @@ import Nav from "./Nav";
 import HogList from "./HogList";
 import HogFilter from "./HogFilter";
 import HogSort from "./HogSort";
+import NewHogForm from "./NewHogForm";
 
 import hogs from "../porkers_data";
 console.log("Here is your data:", hogs)
@@ -28,12 +29,20 @@ function App() {
 		setSortBy(event.target.value)
 	}
 
+	function handleNewHogSubmit(newHogData){
+		setAllHogs([
+			...allHogs,
+			newHogData
+		])
+	}
+
 	return (
 		<div className="App">
 			<Nav />
 			<HogFilter filterGrease={filterGrease} onFilterChange={handleFilterChange}/>
 			<HogSort onSortChange={handleSortChange}/>
 			<br/>
+			<NewHogForm onNewHogSubmit={handleNewHogSubmit}/>
 			<HogList hogList={sortBy ? displayHogs.sort((a,b)=> sortBy === "name" ? a[sortBy].localeCompare(b[sortBy]) : a[sortBy] - b[sortBy]) : displayHogs}/>
 		</div>
 	);
